@@ -1,2 +1,4 @@
 Python requirments for this model is:
-Tensorflow module
+Tensorflow library,
+MatPlotLib library,
+
