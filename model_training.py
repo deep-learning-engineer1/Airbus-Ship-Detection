@@ -77,9 +77,9 @@ Unet_model = tf.keras.models.Sequential([
 ])
 
 def train_model():
-  model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
-  model.fit(train_data, validation_data=test_data, epochs= 18, batch_size=32)
-  model.summary()
+  Unet_model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
+  Unet_model.fit(train_data, validation_data=test_data, epochs= 18, batch_size=32)
+  Unet_model.summary()
 
 train_model()
 
