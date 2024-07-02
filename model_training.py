@@ -27,5 +27,11 @@ model = tf.keras.models.Sequential([
   max_pool_layer2 = conv_layer2,
 ])
 
+def train_model():
+  model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
+  model.fit(training_set, validation_data=test_set, epochs= 14, batch_size=12)
+  model.summary()
+
+train_model()
 #tf.keras.layers.Concatenate
 tf.keras.models.save_model("Airbus-Ship_Detection")
