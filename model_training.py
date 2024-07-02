@@ -27,14 +27,17 @@ Unet_model = tf.keras.models.Sequential([
 
   #Block №1
   encoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
+  tf.keras.Dense(activation="relu")
   tf.keras.layers.MaxPooling2D(),
 
   #Block №2
   encoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
+  tf.keras.Dense(activation="relu")
   tf.keras.layers.MaxPooling2D(),
 
   #Block №3
   encoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
+  tf.keras.Dense(activation="relu")
   tf.keras.layers.MaxPooling2D(),
 
   #Decoder Part
