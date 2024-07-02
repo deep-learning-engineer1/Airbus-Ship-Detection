@@ -7,13 +7,10 @@ from tensorflow.keras.preprocessing import image_dataset_from_directory
 encoder_conv2d_layer1 = tf.keras.layers.Conv2D()
 encoder_conv2d_layer2 = tf.keras.layers.Conv2D()
 encoder_conv2d_layer3 = tf.keras.layers.Conv2D()
-decoder_conv2d_layer1 = tf.keras.layers.Conv2D()
-decoder_conv2d_layer2 = tf.keras.layers.Conv2D()
-decoder_conv2d_layer3 = tf.keras.layers.Conv2D()
 
-
-
-
+upsample_layer1 = tf.keras.layers.UpSampling2D()
+upsample_layer2 = tf.keras.layers.UpSampling2D()
+upsample_layer3 = tf.keras.layers.UpSampling2D()
 
 length = 32
 width = 32
@@ -58,19 +55,21 @@ Unet_model = tf.keras.models.Sequential([
   #Decoder Part
 
   #Block №1
-  tf.keras.layers.UpSampling2D(),
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer1, decoder_conv2d_layer1]),
-  decoder_conv2d_layer1,
+  upsample_layer1,
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer1, upsample_layer1]),
+  tf.keras.layers.Conv2D(),
   
 
   #Block №2
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer2, decoder_conv2d_layer2]),
-  decoder_conv2d_layer2,
+  upsample_layer2
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer2, upsample_layer2]),
+  tf.keras.layers.Conv2D(),
   
 
   #Block №3
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer3, decoder_conv2d_layer3]),
-  decoder_conv2d_layer3
+  upsample_layer3
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer3, upsample_layer3]),
+  tf.keras.layers.Conv2D(),
   
 ])
 
