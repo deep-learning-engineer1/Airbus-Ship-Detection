@@ -36,17 +36,17 @@ Unet_model = tf.keras.models.Sequential([
 
   #Block №1
   encoder_conv2d_layer1,
-  tf.keras.layers.Dense(activation="relu"),
+  tf.keras.layers.Dense(256, activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #Block №2
   encoder_conv2d_layer2,
-  tf.keras.layers.Dense(activation="relu"),
+  tf.keras.layers.Dense(256, activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #Block №3
   encoder_conv2d_layer3,
-  tf.keras.layers.Dense(activation="relu"),
+  tf.keras.layers.Dense(256 ,activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #BottleNeck
@@ -58,21 +58,21 @@ Unet_model = tf.keras.models.Sequential([
   upsample_layer1,
   tf.keras.layers.Concatenate()([encoder_conv2d_layer1, upsample_layer1]),
   tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu"),
+  tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №2
   upsample_layer2
   tf.keras.layers.Concatenate()([encoder_conv2d_layer2, upsample_layer2]),
   tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu"),
+  tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №3
   upsample_layer3
   tf.keras.layers.Concatenate()([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu")
+  tf.keras.layers.Dense(256, activation="relu")
   
 ])
 
@@ -84,4 +84,4 @@ def train_model():
 train_model()
 
 #Saving model for inference
-tf.keras.models.save_model("Airbus-Ship_Detection")
+tf.keras.models.save_model("Airbus-Ship-Detection")
