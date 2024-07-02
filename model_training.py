@@ -28,4 +28,4 @@ model = tf.keras.models.Sequential([
 ])
 
 #tf.keras.layers.Concatenate
-
+tf.keras.models.save_model("Airbus-Ship_Detection")
