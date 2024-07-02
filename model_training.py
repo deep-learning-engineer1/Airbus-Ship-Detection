@@ -1,12 +1,12 @@
 import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
-from tf.keras.preprocessing import images_dataset_from_directory
+from tf.keras.preprocessing import image_dataset_from_directory
 
 length = 
 width = 
 #Importing datasets
-train_data = tf.keras.preprocessing.images_dataset_from_directory(
+train_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "./",
     color_mode = "rgb",
     image_size = (length, width),
@@ -14,7 +14,7 @@ train_data = tf.keras.preprocessing.images_dataset_from_directory(
     shuffle=True
 ) 
 
-test_data = tf.keras.preprocessing.images_dataset_from_directory(
+test_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "./",
     color_mode = "rgb",
     image_size = (length, width),
