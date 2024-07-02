@@ -1,7 +1,7 @@
 import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
-import ImageGenerator
+from tf.keras.preprocessing import images_dataset_from_directory
 
 length = 
 width = 
@@ -11,6 +11,7 @@ train_data = tf.keras.preprocessing.images_dataset_from_directory(
     color_mode = "rgb",
     image_size = (length, width),
     batch_size = 32,
+    shuffle=True
 ) 
 
 test_data = tf.keras.preprocessing.images_dataset_from_directory(
@@ -18,6 +19,7 @@ test_data = tf.keras.preprocessing.images_dataset_from_directory(
     color_mode = "rgb",
     image_size = (length, width),
     batch_size = 32,
+    shuffle=True
 )
 
 Unet_model = tf.keras.models.Sequential([
