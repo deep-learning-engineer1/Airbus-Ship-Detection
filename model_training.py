@@ -13,21 +13,26 @@ Unet_model = tf.keras.models.Sequential([
   encoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
   tf.keras.layers.MaxPooling2D(),
 
-  #Block №4
+  #Block №3
   encoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
   tf.keras.layers.MaxPooling2D(),
 
-  #Concatenate Part
   #Decoder Part
 
   #Block №1
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer, decoder_conv2d_layer1])
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer1, decoder_conv2d_layer1])
   decoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
-  tf.keras.layers.MaxPooling2D,
+  
 
   #Block №2
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer2, decoder_conv2d_layer2])
+  decoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
   
+
   #Block №3
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer3, decoder_conv2d_layer3])
+  decoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
+  
 ])
 
 def train_model():
