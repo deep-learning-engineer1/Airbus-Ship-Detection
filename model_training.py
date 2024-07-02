@@ -61,5 +61,6 @@ def train_model():
   model.summary()
 
 train_model()
-#tf.keras.layers.Concatenate
+
+#Saving model for inference
 tf.keras.models.save_model("Airbus-Ship_Detection")
