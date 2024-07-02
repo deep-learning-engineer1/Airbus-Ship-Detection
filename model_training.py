@@ -2,24 +2,29 @@ import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
 
-model = tf.keras.models.Sequential([
+Unet_model = tf.keras.models.Sequential([
   #Encoder Part
 
   #Block №1
-  tf.keras.layers.Conv2D(),
-  tf.keras.layers.MaxPooling2D,
+  encoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.MaxPooling2D(),
 
-  
   #Block №2
+  encoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.MaxPooling2D(),
 
   #Block №4
+  encoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.MaxPooling2D(),
 
   #Concatenate Part
-
   #Decoder Part
 
   #Block №1
-  
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer, decoder_conv2d_layer1])
+  decoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.MaxPooling2D,
+
   #Block №2
   
   #Block №3
