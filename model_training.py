@@ -1,10 +1,22 @@
 import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
-from tf.keras.preprocessing import image_dataset_from_directory
+from tensorflow.keras.preprocessing import image_dataset_from_directory
 
-length = 
-width = 
+
+encoder_conv2d_layer1 = tf.keras.layers.Conv2D()
+encoder_conv2d_layer2 = tf.keras.layers.Conv2D()
+encoder_conv2d_layer3 = tf.keras.layers.Conv2D()
+decoder_conv2d_layer1 = tf.keras.layers.Conv2D()
+decoder_conv2d_layer2 = tf.keras.layers.Conv2D()
+decoder_conv2d_layer3 = tf.keras.layers.Conv2D()
+
+
+
+
+
+length = 32
+width = 32
 #Importing datasets
 train_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "./",
@@ -26,39 +38,39 @@ Unet_model = tf.keras.models.Sequential([
   #Encoder Part
 
   #Block №1
-  encoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu")
+  encoder_conv2d_layer1,
+  tf.keras.layers.Dense(activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #Block №2
-  encoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu")
+  encoder_conv2d_layer2,
+  tf.keras.layers.Dense(activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #Block №3
-  encoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
-  tf.keras.layers.Dense(activation="relu")
+  encoder_conv2d_layer3,
+  tf.keras.layers.Dense(activation="relu"),
   tf.keras.layers.MaxPooling2D(),
 
   #BottleNeck
-  tf.keras.layers.Conv2D()
+  tf.keras.layers.Conv2D(),
 
   #Decoder Part
 
   #Block №1
   tf.keras.layers.UpSampling2D(),
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer1, decoder_conv2d_layer1])
-  decoder_conv2d_layer1 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer1, decoder_conv2d_layer1]),
+  decoder_conv2d_layer1,
   
 
   #Block №2
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer2, decoder_conv2d_layer2])
-  decoder_conv2d_layer2 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer2, decoder_conv2d_layer2]),
+  decoder_conv2d_layer2,
   
 
   #Block №3
-  tf.keras.layers.Concatenate()([encoder_conv2d_layer3, decoder_conv2d_layer3])
-  decoder_conv2d_layer3 = tf.keras.layers.Conv2D(),
+  tf.keras.layers.Concatenate()([encoder_conv2d_layer3, decoder_conv2d_layer3]),
+  decoder_conv2d_layer3
   
 ])
 
