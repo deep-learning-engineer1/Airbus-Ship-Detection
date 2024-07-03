@@ -67,21 +67,21 @@ Unet_model = tf.keras.models.Sequential([
   #Block №1
   upsample_layer1,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №2
   upsample_layer2,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2D(64, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №3
   upsample_layer3,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2D(32, kernel_size = (3, 3), padding="same")
+  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
     
 ])
 
