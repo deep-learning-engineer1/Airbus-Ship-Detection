@@ -96,4 +96,4 @@ def train_model():
 train_model()
 
 #Saving model for inference
-tf.keras.models.save_model("Airbus-Ship-Detection")
+tf.keras.models.save_model("Airbus-Ship-Detection", save_format="tf")
