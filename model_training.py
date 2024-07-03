@@ -4,9 +4,9 @@ import tensorflow.keras.models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 
-encoder_conv2d_layer1 = tf.keras.layers.Conv2D(filters = 512, kernel_size = (3, 3), activation = "relu")
-encoder_conv2d_layer2 = tf.keras.layers.Conv2D(filters = 512, kernel_size = (3, 3), activation = "relu")
-encoder_conv2d_layer3 = tf.keras.layers.Conv2D(filters = 512, kernel_size = (3, 3), activation = "relu")
+encoder_conv2d_layer1 = tf.keras.layers.Conv2D(units = 16, filters = 512, kernel_size = (3, 3), activation = "relu", padding="same")
+encoder_conv2d_layer2 = tf.keras.layers.Conv2D(units = 16, filters = 512, kernel_size = (3, 3), activation = "relu", padding="same")
+encoder_conv2d_layer3 = tf.keras.layers.Conv2D(units = 16, filters = 512, kernel_size = (3, 3), activation = "relu", padding="same")
 
 upsample_layer1 = tf.keras.layers.UpSampling2D()
 upsample_layer2 = tf.keras.layers.UpSampling2D()
