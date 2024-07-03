@@ -1,12 +1,12 @@
-import tensorflow as tf
+ import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 
-encoder_conv2d_layer1 = tf.keras.layers.Conv2D(16, kernel_size = (3, 3), activation = "relu", padding="same")
-encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3), activation = "relu", padding="same")
-encoder_conv2d_layer3 = tf.keras.layers.Conv2D(64, kernel_size = (3, 3), activation = "relu", padding="same")
+encoder_conv2d_layer1 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3))
+encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3))
+encoder_conv2d_layer3 = tf.keras.layers.Conv2D(64, kernel_size = (3, 3))
 
 upsample_layer1 = tf.keras.layers.UpSampling2D()
 upsample_layer2 = tf.keras.layers.UpSampling2D()
@@ -18,7 +18,6 @@ width = 32
 train_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "/kaggle/input/ship-data/my_shipdetection",
     color_mode = "rgb",
-    image_size = (length, width),
     batch_size = 32,
     shuffle=True
 ) 
@@ -26,7 +25,6 @@ train_data = tf.keras.preprocessing.image_dataset_from_directory(
 test_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "/kaggle/input/ship-data/my_shipdetection",
     color_mode = "rgb",
-    image_size = (length, width),
     batch_size = 32,
     shuffle=True
 )
@@ -46,43 +44,36 @@ Unet_model = tf.keras.models.Sequential([
 
   #Block №1
   encoder_conv2d_layer1,
-  encoder_conv2d_layer1,
-  tf.keras.layers.Dense(256, activation="relu"),
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+  tf.keras.layers.Dense(128, activation="relu"),
+  tf.keras.layers.MaxPooling2D(),
 
   #Block №2
   encoder_conv2d_layer2,
-  encoder_conv2d_layer2,
+  
   tf.keras.layers.Dense(256, activation="relu"),
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+  tf.keras.layers.MaxPooling2D(),
 
   #Block №3
   encoder_conv2d_layer3,
-  encoder_conv2d_layer3,
+  
   tf.keras.layers.Dense(256 ,activation="relu"),
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+  tf.keras.layers.MaxPooling2D(),
 
   #BottleNeck
   tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
-  tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"), 
-  tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"),
 
   #Decoder Part
 
   #Block №1
   upsample_layer1,
-  tf.keras.layers.Concatenate([encoder_conv2d_layer1, upsample_layer1]),
-  tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №2
   upsample_layer2,
-  tf.keras.layers.Concatenate([encoder_conv2d_layer2, upsample_layer2]),
-  tf.keras.layers.Conv2D(64, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2D(64, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Dense(256, activation="relu"),
   
@@ -90,10 +81,8 @@ Unet_model = tf.keras.models.Sequential([
   #Block №3
   upsample_layer3,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2D(32, kernel_size = (3, 3), padding="same"),
-  tf.keras.layers.Conv2D(32, kernel_size = (3, 3), padding="same"),
-  tf.keras.layers.Conv2D(16, kernel_size = (3, 3), padding="same"),
-  tf.keras.layers.Conv2D(16, kernel_size = (1, 1), padding="same")
+  tf.keras.layers.Conv2D(32, kernel_size = (3, 3), padding="same")
+    
 ])
 
 def train_model():
