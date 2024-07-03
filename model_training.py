@@ -4,9 +4,9 @@ import tensorflow.keras.models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 
-encoder_conv2d_layer1 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3))
-encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3))
-encoder_conv2d_layer3 = tf.keras.layers.Conv2D(64, kernel_size = (3, 3))
+encoder_conv2d_layer1 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3), stride=1, activation = "relu")
+encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3), stride=1, activation = "relu")
+encoder_conv2d_layer3 = tf.keras.layers.Conv2D(64, kernel_size = (3, 3), stride=1, activation = "relu")
 
 upsample_layer1 = tf.keras.layers.UpSampling2D()
 upsample_layer2 = tf.keras.layers.UpSampling2D()
@@ -44,23 +44,23 @@ Unet_model = tf.keras.models.Sequential([
 
   #Block №1
   encoder_conv2d_layer1,
-  tf.keras.layers.Dense(128, activation="relu"),
+  encoder_conv2d_layer1,
   tf.keras.layers.MaxPooling2D(),
 
   #Block №2
   encoder_conv2d_layer2,
-  
-  tf.keras.layers.Dense(256, activation="relu"),
+  encoder_conv2d_layer2,
   tf.keras.layers.MaxPooling2D(),
 
   #Block №3
   encoder_conv2d_layer3,
-  
-  tf.keras.layers.Dense(256 ,activation="relu"),
+  encoder_conv2d_layer3,
   tf.keras.layers.MaxPooling2D(),
 
   #BottleNeck
   tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
 
   #Decoder Part
 
@@ -68,20 +68,20 @@ Unet_model = tf.keras.models.Sequential([
   upsample_layer1,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №2
   upsample_layer2,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.Dense(256, activation="relu"),
   
 
   #Block №3
   upsample_layer3,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
+  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
+  tf.keras.layers.Conv2DTranspose(32, kernel_size = (1, 1), padding="same")
     
 ])
 
