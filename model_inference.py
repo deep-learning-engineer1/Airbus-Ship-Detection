@@ -2,12 +2,12 @@ import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
 
-
-tf.keras.load_model("./")
+Unet_model = tf.keras.load_model("./")
 
 def preprocess():
   pass
   
 def predict():
   preprocess()
+  Unet_model.predict()
   pass
