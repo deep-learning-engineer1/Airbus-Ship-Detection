@@ -1,3 +1,5 @@
 Python requirments for this model is:
 Tensorflow library,
-MatPlotLib library
+MatPlotLib library,
+OpenCV library,
+Pandas library
