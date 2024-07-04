@@ -5,8 +5,8 @@ from tensorflow.keras.preprocessing import image_dataset_from_directory
 import matplotlib.pyplot as plt
 
 your_directory = ""
-length = 
-width = 
+length = 572
+width = 572
 
 data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = your_directory,
@@ -20,4 +20,3 @@ Unet_model = tf.keras.load_model("./")
 
 def predict():
   Unet_model.predict(data)
-  pass
