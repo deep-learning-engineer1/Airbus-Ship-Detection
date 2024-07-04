@@ -13,8 +13,8 @@ upsample_layer2 = tf.keras.layers.UpSampling2D()
 upsample_layer3 = tf.keras.layers.UpSampling2D()
 upsample_layer4 = tf.keras.layers.UpSampling2D()
 
-length = 32
-width = 32
+length = 572
+width = 572
 #Importing datasets
 train_data = tf.keras.preprocessing.image_dataset_from_directory(
     directory = "/kaggle/input/ship-data/my_shipdetection",
