@@ -38,5 +38,3 @@ for i in range(number_of_images):
     image = dataset_images[i]
     cv.line(image, encoded_pixels, red)
 print("All images are ready.")
-
-# i need to add annotated images to all images.
