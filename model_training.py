@@ -50,22 +50,22 @@ Unet_model = tf.keras.models.Sequential([
   #Block №1
   encoder_conv2d_layer1,
   encoder_conv2d_layer1,
-  tf.keras.layers.MaxPooling2D(),
+  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №2
   encoder_conv2d_layer2,
   encoder_conv2d_layer2,
-  tf.keras.layers.MaxPooling2D(),
+  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №3
   encoder_conv2d_layer3,
   encoder_conv2d_layer3,
-  tf.keras.layers.MaxPooling2D(),
+  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №4
   encoder_conv2d_layer4,
   encoder_conv2d_layer4,
-  tf.keras.layers.MaxPooling2D(),
+  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #-----------------------------------------------------------------------------------------------
 
@@ -92,19 +92,17 @@ Unet_model = tf.keras.models.Sequential([
   #Block №3
   upsample_layer3,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
+  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), activation = "relu", padding="same"),
   
 
   #Block №4
   upsample_layer4,
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
-  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
-  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
-  tf.keras.layers.Conv2DTranspose(32, kernel_size = (1, 1), padding="same")
+  tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same")
+  tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same")
+  tf.keras.layers.Conv2DTranspose(16, kernel_size = (1, 1), padding="same")
 
   #------------------------------------------------------------------------------------------------
-    
-    
 ])
 
 def train_model():
