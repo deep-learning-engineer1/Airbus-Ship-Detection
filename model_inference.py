@@ -3,6 +3,7 @@ import tensorflow.keras.layers
 import tensorflow.keras.models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 import matplotlib.pyplot as plt
+import pandas as pd
 
 your_directory = ""
 length = 572
