@@ -43,7 +43,7 @@ test_data = data[17023]'''
 
 Unet_model = tf.keras.models.Sequential([
 
-  #----------------------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------------------------
     
   #Encoder Part
 
@@ -67,14 +67,14 @@ Unet_model = tf.keras.models.Sequential([
   encoder_conv2d_layer4,
   tf.keras.layers.MaxPooling2D(),
 
-  #----------------------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------------------------
 
   #BottleNeck
   tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Conv2D(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
 
-  #----------------------------------------------------------------------------------------------  
+  #----------------------------------------------------------------------------------------------- 
 
   #Decoder Part
 
@@ -102,7 +102,7 @@ Unet_model = tf.keras.models.Sequential([
   tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), padding="same")
   tf.keras.layers.Conv2DTranspose(32, kernel_size = (1, 1), padding="same")
 
-  #----------------------------------------------------------------------------------------------
+  #------------------------------------------------------------------------------------------------
     
     
 ])
