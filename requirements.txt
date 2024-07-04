@@ -1,5 +1,5 @@
 Python requirments for this model is:
-Tensorflow library,
-MatPlotLib library,
-OpenCV library,
-Pandas library
+Tensorflow keras.layers, keras.models, ;
+MatPlotLib: pyplot;
+OpenCV;
+Pandas.
