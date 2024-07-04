@@ -1,4 +1,4 @@
-Python requirments for this model is:
+Python requirments for this project are:
 Tensorflow keras.layers, keras.models, tensorflow.keras.preprocessing;
 MatPlotLib: pyplot;
 OpenCV;
