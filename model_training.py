@@ -3,7 +3,6 @@ import tensorflow.keras.layers
 import tensorflow.keras.models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
-
 encoder_conv2d_layer1 = tf.keras.layers.Conv2D(16, kernel_size = (3, 3), strides=1, activation = "relu")
 encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3), strides=1, activation = "relu")
 encoder_conv2d_layer3 = tf.keras.layers.Conv2D(64, kernel_size = (3, 3), strides=1, activation = "relu")
