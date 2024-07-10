@@ -70,24 +70,36 @@ Unet_model = tf.keras.models.Sequential([
 
   #Block №1
   upsample_layer1,
+  
+  #Skip Connection №1
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+    
   tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   
 
   #Block №2
   upsample_layer2,
+    
+  #Skip Connection №2
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+  
   tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
 
   #Block №3
   upsample_layer3,
+
+  #Skip Connection №3
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+  
   tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), activation = "relu", padding="same"),
   
 
   #Block №4
   upsample_layer4,
+    
+  #Skip Connection №3
   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+  
   tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
   tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
   tf.keras.layers.Conv2DTranspose(16, kernel_size = (1, 1), padding="same")
@@ -97,7 +109,7 @@ Unet_model = tf.keras.models.Sequential([
 
 def train_model():
   Unet_model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
-  Unet_model.fit(training_set, epochs= 18, batch_size=32)
+  Unet_model.fit(training_set, epochs=18, batch_size=32)
   Unet_model.summary()
 
 train_model()
