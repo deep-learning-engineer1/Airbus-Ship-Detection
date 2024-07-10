@@ -1,7 +1,12 @@
 import tensorflow as tf
 import tensorflow.keras.layers
 import tensorflow.keras.models
-from tensorflow.keras.preprocessing import image_dataset_from_directory
+import tensorflow as tf 
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+data = ImageDataGenerator(rescale= 1/255)
+
+input_shape = (572, 572)
 
 encoder_conv2d_layer1 = tf.keras.layers.Conv2D(16, kernel_size = (3, 3), strides=1, activation = "relu")
 encoder_conv2d_layer2 = tf.keras.layers.Conv2D(32, kernel_size = (3, 3), strides=1, activation = "relu")
@@ -16,28 +21,14 @@ upsample_layer4 = tf.keras.layers.UpSampling2D()
 length = 572
 width = 572
 #Importing datasets
-train_data = tf.keras.preprocessing.image_dataset_from_directory(
-    directory = "/kaggle/input/ship-data/my_shipdetection",
-    color_mode = "rgb",
-    batch_size = 32,
-    shuffle=True
-) 
 
-test_data = tf.keras.preprocessing.image_dataset_from_directory(
-    directory = "/kaggle/input/ship-data/my_shipdetection",
-    color_mode = "rgb",
-    batch_size = 32,
-    shuffle=True
-)
+training_set = data.flow_from_directory("/kaggle/input/airbus-ship-detection/train_v2",
+                                         target_size= input_shape,
+                                         batch_size = 1,
+                                         class_mode = 'binary',
+                                         color_mode = 'grayscale',
+                                         shuffle = True)
 
-'''data = tf.keras.preprocessing.image_dataset_from_directory(
-   directory = "/kaggle/input/ship-data/my_shipdetection",
-   color_mode = "rgb",
-   image_size = (length, width),
-   batch_size = 32,
-   shuffle=True)
-train_data = data[68089]
-test_data = data[17023]'''
 
 
 Unet_model = tf.keras.models.Sequential([
@@ -106,7 +97,7 @@ Unet_model = tf.keras.models.Sequential([
 
 def train_model():
   Unet_model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
-  Unet_model.fit(train_data, validation_data=test_data, epochs= 18, batch_size=32)
+  Unet_model.fit(training_set, epochs= 18, batch_size=32)
   Unet_model.summary()
 
 train_model()
