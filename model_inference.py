@@ -20,5 +20,5 @@ data = tf.keras.preprocessing.image_dataset_from_directory(
 Unet_model = tf.keras.load_model("./")
 
 def predict():
-  image = Unet_model.predict(data)
-  pd.imshow(image)
+   image = Unet_model.predict(data)
+   pd.imshow(image)
