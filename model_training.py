@@ -4,7 +4,7 @@ import tensorflow.keras.models
 import tensorflow as tf 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-data = ImageDataGenerator(rescale= 1/255)
+data = ImageDataGenerator(rescale=1/255)
 
 input_shape = (572, 572)
 
@@ -22,11 +22,9 @@ length = 572
 width = 572
 #Importing datasets
 
-training_set = data.flow_from_directory("/kaggle/input/airbus-ship-detection/train_v2",
-                                         target_size= input_shape,
+training_set = tf.keras.utils.image_dataset_from_directory("/kaggle/input/airbus-ship-detection/train_v2/",
                                          batch_size = 1,
-                                         class_mode = 'binary',
-                                         color_mode = 'grayscale',
+                                         color_mode = 'rgb',
                                          shuffle = True)
 
 
@@ -38,79 +36,79 @@ Unet_model = tf.keras.models.Sequential([
   #Encoder Part
 
   #Block №1
-  encoder_conv2d_layer1,
-  encoder_conv2d_layer1,
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+   encoder_conv2d_layer1,
+   encoder_conv2d_layer1,
+   tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №2
-  encoder_conv2d_layer2,
-  encoder_conv2d_layer2,
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+   encoder_conv2d_layer2,
+   encoder_conv2d_layer2,
+   tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №3
-  encoder_conv2d_layer3,
-  encoder_conv2d_layer3,
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+   encoder_conv2d_layer3,
+   encoder_conv2d_layer3,
+   tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #Block №4
-  encoder_conv2d_layer4,
-  encoder_conv2d_layer4,
-  tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
+   encoder_conv2d_layer4,
+   encoder_conv2d_layer4,
+   tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2),
 
   #-----------------------------------------------------------------------------------------------
 
   #BottleNeck
-  tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"),
-  tf.keras.layers.Conv2DTranspose(256, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2D(256, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2DTranspose(256, kernel_size = (3, 3), activation = "relu", padding="same"),
 
   #----------------------------------------------------------------------------------------------- 
 
   #Decoder Part
 
   #Block №1
-  upsample_layer1,
+   upsample_layer1,
   
   #Skip Connection №1
-  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
     
-  tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2DTranspose(128, kernel_size = (3, 3), activation = "relu", padding="same"),
   
 
   #Block №2
-  upsample_layer2,
+   upsample_layer2,
     
   #Skip Connection №2
-  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   
-  tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2DTranspose(64, kernel_size = (3, 3), activation = "relu", padding="same"),
 
   #Block №3
-  upsample_layer3,
+   upsample_layer3,
 
   #Skip Connection №3
-  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   
-  tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), activation = "relu", padding="same"),
+   tf.keras.layers.Conv2DTranspose(32, kernel_size = (3, 3), activation = "relu", padding="same"),
   
 
   #Block №4
-  upsample_layer4,
+   upsample_layer4,
     
   #Skip Connection №3
-  tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
+   tf.keras.layers.Concatenate([encoder_conv2d_layer3, upsample_layer3]),
   
-  tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
-  tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
-  tf.keras.layers.Conv2DTranspose(16, kernel_size = (1, 1), padding="same")
+   tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
+   tf.keras.layers.Conv2DTranspose(16, kernel_size = (3, 3), padding="same"),
+   tf.keras.layers.Conv2DTranspose(16, kernel_size = (1, 1), padding="same")
 
   #------------------------------------------------------------------------------------------------
 ])
 
 def train_model():
-  Unet_model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
-  Unet_model.fit(training_set, epochs=18, batch_size=32)
-  Unet_model.summary()
+   Unet_model.compile(optimizer='nadam', loss=['binary_crossentropy'], metrics=['accuracy'])
+   Unet_model.fit(training_set, epochs=18, batch_size=32)
+   Unet_model.summary()
 
 train_model()
 
