@@ -9,9 +9,9 @@ import os
 import json
 from PIL import Image, ImageDraw
 
-directory_csv = "/kaggle/input/airbus-ship-detection/train_ship_segmentations_v2.csv"
-directory_images = "/kaggle/input/airbus-ship-detection/train_v2/000155de5.jpg"
-new_directory = os.mkdir("/kaggle/working/annotated_images")
+#directory_csv = "/kaggle/input/airbus-ship-detection-train-set-70/train_ship_segmentations_v3.csv"
+directory_images = "/kaggle/input/airbus-ship-detection-train-set-70/train_v3/train_v3/Images"
+#new_directory = os.mkdir("/kaggle/working/annotated_images")
 
 image = Image.open(directory_csv)
 width_image = image.width
@@ -27,7 +27,7 @@ file[0]
 import cv2 as cv
 
 # Images
-number_of_images = 85112
+number_of_images = 192556
 dataset_images = tf.keras.preprocessing.image_dataset_from_directory(
     directory = directory_images,
     color_mode = "rgb",
@@ -37,21 +37,26 @@ dataset_images = tf.keras.preprocessing.image_dataset_from_directory(
 
 # CSV file
 dataset_csv = pd.read_csv(directory_csv)
-print(dataset_csv["EncodedPixels"].head(10))
 
-
-red = (0, 0, 256)
-
-'''for i in range(number_of_images):
+for i in range(number_of_images):
     encoded_pixels = dataset_csv["EncodedPixels"][i]
     if encoded_pixels == "" or encoded_pixels == "NaN":
         print("image doesn't have any ship")
         continue
-'''
-rle_decoder(image, run_length):
-    open with(image, mode = "rb") as file:
-        
-        
-        
+    decode_rle_photo(encoded_pixels, "JPG")
+    
+
+def decode_rle_photo(rle_data, image_format):
+    # Placeholder for RLE data validation (assuming format specific)
+    if not validate_rle_photo_format(rle_data, image_format):
+        raise ValueError("Invalid RLE data for image format")
+
+    # Use Pillow to open the image from RLE data (conversion might be needed)
+    try:
+        image = Image.open(rle_data)
+        return image
+    except Exception as e:
+        print(f"Error decoding image: {e}")
+        return None
         
 print("All images are ready.")
